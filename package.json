@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "create-wood-token": "ts-node ./tokens/wood/index.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -13,6 +14,9 @@
     "@chakra-ui/react": "^2.4.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@metaplex-foundation/js": "^0.17.6",
+    "@metaplex-foundation/mpl-token-metadata": "^2.5.1",
+    "@solana/spl-token": "^0.3.6",
     "@solana/wallet-adapter-base": "^0.9.19",
     "@solana/wallet-adapter-react": "^0.15.25",
     "@solana/wallet-adapter-react-ui": "^0.9.23",
@@ -21,6 +25,7 @@
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
+    "dotenv": "^16.0.3",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
     "framer-motion": "^6.5.1",
@@ -30,6 +35,7 @@
     "typescript": "4.9.3"
   },
   "devDependencies": {
-    "prettier": "^2.8.0"
+    "prettier": "^2.8.0",
+    "ts-node": "^10.9.1"
   }
 }
