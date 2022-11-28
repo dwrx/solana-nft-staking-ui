@@ -41,7 +41,8 @@ const Connected: FC = () => {
       .candyMachinesV2()
       .findByAddress({
         address: new PublicKey(
-          process.env.NEXT_PUBLIC_CANDY_MACHINE_ADDRESS ?? ""
+          process.env.NEXT_PUBLIC_CANDY_MACHINE_ADDRESS ||
+            "54jUp41gwVmc946ikWeYSoe8B4prLNUBy5Dkrm26EwTu"
         ),
       })
       //.run()
