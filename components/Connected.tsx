@@ -80,28 +80,21 @@ const Connected: FC = () => {
     <VStack spacing={20}>
       <Container>
         <VStack spacing={8}>
-          <Heading
+          {/* <Heading
             color="white"
             as="h1"
             size="2xl"
             noOfLines={1}
             textAlign="center"
           >
-            Welcome Viking.
-          </Heading>
+            Welcome.
+          </Heading> */}
 
           <Text color="bodyText" fontSize="xl" textAlign="center">
-            Each viking is randomly generated and can be staked to receive
-            <Text as="b"> resources</Text>. Use your{" "}
-            <Text as="b">resources</Text> to upgrade your viking and receive
-            additional perks!
+            Purchase land and earn resources to build your own kingdom.
           </Text>
         </VStack>
       </Container>
-
-      <HStack className="img-previews" spacing={10}>
-        <Image src="preview.gif" alt="" />
-      </HStack>
 
       <Button
         bgColor="accent"
@@ -110,7 +103,7 @@ const Connected: FC = () => {
         onClick={handleMintClick}
       >
         <HStack>
-          <Text>mint viking</Text>
+          <Text>Mint</Text>
         </HStack>
       </Button>
     </VStack>

@@ -11,8 +11,7 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Buildoors</title>
-        <meta name="The NFT Collection for Buildoors" />
+        <title>Staking</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -29,19 +28,6 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 
           <Center>{children}</Center>
 
-          <Spacer />
-
-          <Center>
-            <Box marginBottom={4} color="white">
-              <a
-                href="https://twitter.com/_buildspace"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                build with @_buildspace
-              </a>
-            </Box>
-          </Center>
         </Stack>
       </Box>
     </div>

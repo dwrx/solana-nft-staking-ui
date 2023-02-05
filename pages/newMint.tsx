@@ -64,12 +64,12 @@ const NewMint: NextPage<NewMintProps> = ({ mint }) => {
         <Container>
           <VStack spacing={8}>
             <Heading color="white" as="h1" size="2xl" textAlign="center">
-              😮 A new viking has appeared!
+              Mint is successful!
             </Heading>
 
             <Text color="bodyText" fontSize="xl" textAlign="center">
-              Congratulations, you minted a lvl 1 viking! <br />
-              Time to stake your character to earn rewards and level up.
+              Congratulations, you minted a new building! <br />
+              Time to stake it to earn resources and level up.
             </Text>
           </VStack>
         </Container>
@@ -83,7 +83,7 @@ const NewMint: NextPage<NewMintProps> = ({ mint }) => {
           onClick={handleClick}
         >
           <HStack>
-            <Text>stake my viking</Text>
+            <Text>stake</Text>
             <ArrowForwardIcon />
           </HStack>
         </Button>

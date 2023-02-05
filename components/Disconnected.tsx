@@ -35,12 +35,12 @@ const Disconnected: FC = () => {
       <VStack spacing={20}>
         <Heading
           color="white"
-          as="h1"
+          as="h2"
           size="3xl"
           noOfLines={2}
           textAlign="center"
         >
-          Mint your viking.
+          Staking demo
         </Heading>
         <Button
           bgColor="accent"
@@ -48,7 +48,7 @@ const Disconnected: FC = () => {
           maxW="380px"
           onClick={handleClick}
         >
-          <Text>Mint NFT</Text>
+          <Text>Start</Text>
         </Button>
       </VStack>
     </Container>

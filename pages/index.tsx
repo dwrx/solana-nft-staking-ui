@@ -13,8 +13,8 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Vikings</title>
-        <meta name="The NFT Collection for Vikings" />
+        <title>Staking</title>
+        <meta name="Staking demo" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -24,11 +24,6 @@ const Home: NextPage = () => {
           <Spacer />
           <Center>{connected ? <Connected /> : <Disconnected />}</Center>
           <Spacer />
-          <Center>
-            <Box marginBottom={4} color="white">
-              <p>Farm, upgrade, win.</p>
-            </Box>
-          </Center>
         </Stack>
       </Box>
     </div>
