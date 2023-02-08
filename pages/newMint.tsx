@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import MainLayout from "../components/MainLayout";
+import styles from "../styles/Home.module.css";
 import {
   Container,
   Heading,
@@ -74,19 +75,27 @@ const NewMint: NextPage<NewMintProps> = ({ mint }) => {
           </VStack>
         </Container>
 
-        <Image src={metadata?.image ?? ""} alt="" width="256" />
+        <Image
+          src={metadata?.image ?? ""}
+          className={styles.imagePreview}
+          alt=""
+          width="256"
+        />
 
-        <Button
-          bgColor="accent"
-          color="white"
-          maxW="380px"
-          onClick={handleClick}
-        >
-          <HStack>
-            <Text>stake</Text>
-            <ArrowForwardIcon />
-          </HStack>
-        </Button>
+        {walletAdapter.publicKey && (
+          <a
+            href={`village?owner=` + walletAdapter.publicKey.toBase58()}
+            style={{
+              background: "transparent",
+              border: "2px solid #fff",
+              color: "#fff",
+              padding: "8px 20px",
+              borderRadius: "7px",
+            }}
+          >
+            Go to Village
+          </a>
+        )}
       </VStack>
     </MainLayout>
   );

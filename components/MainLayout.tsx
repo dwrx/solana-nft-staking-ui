@@ -24,10 +24,9 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
         <Stack w="full" h="calc(100vh)" justify="center">
           <NavBar />
 
-          <Spacer />
+          {/* <Spacer /> */}
 
           <Center>{children}</Center>
-
         </Stack>
       </Box>
     </div>

@@ -42,7 +42,7 @@ const Connected: FC = () => {
       .findByAddress({
         address: new PublicKey(
           process.env.NEXT_PUBLIC_CANDY_MACHINE_ADDRESS ||
-            "54jUp41gwVmc946ikWeYSoe8B4prLNUBy5Dkrm26EwTu"
+            "AGXjs6J6UpjuBPx22pSaZuQA5q3pdFMyDL5zDiHWHLs6"
         ),
       })
       //.run()

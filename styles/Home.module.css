@@ -4,3 +4,9 @@ body .container {
 .wallet-adapter-button-trigger {
   background-color: #833bbe;
 }
+
+.imagePreview {
+  max-width: 256px;
+  border: 2px solid #553570;
+  border-radius: 10px;
+}
