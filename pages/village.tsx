@@ -21,18 +21,30 @@ import {
   useState,
 } from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { PublicKey } from "@solana/web3.js";
-import { Metaplex, walletAdapterIdentity } from "@metaplex-foundation/js";
+import { PublicKey, Keypair, Transaction } from "@solana/web3.js";
+import { Metaplex, walletAdapterIdentity, Nft } from "@metaplex-foundation/js";
 import { useRouter } from "next/router";
+import {
+  TOKEN_PROGRAM_ID,
+  getOrCreateAssociatedTokenAccount,
+} from "@solana/spl-token";
+import { PROGRAM_ID as METADATA_PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
+import {
+  createInitializeStakeAccountInstruction,
+  createStakingInstruction,
+} from "../utils/instructions";
 
 interface VillageProps {
   owner: PublicKey;
 }
 
+const PROGRAM_ID = new PublicKey("pHX6S9LXRMzM2CLzWc4pNytHUNNSKzBqvZG5ZADgJ7K");
+
 const Village: NextPage<VillageProps> = ({ owner }) => {
   const [buildings, setBuildings] = useState<any>();
   const { connection } = useConnection();
   const walletAdapter = useWallet();
+
   const metaplex = useMemo(() => {
     return Metaplex.make(connection).use(walletAdapterIdentity(walletAdapter));
   }, [connection, walletAdapter]);
@@ -87,8 +99,77 @@ const Village: NextPage<VillageProps> = ({ owner }) => {
       });
   }, [owner, metaplex, walletAdapter]);
 
-  const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
-    async (event) => {},
+  const checkStakingStatus = useCallback(
+    async (nftTokenAccount: PublicKey) => {
+      if (!walletAdapter.publicKey || !nftTokenAccount) {
+        return;
+      }
+    },
+    [walletAdapter.publicKey]
+  );
+
+  const handleStake: MouseEventHandler<HTMLButtonElement> = useCallback(
+    async (nftMint) => {
+      if (!walletAdapter.connected || !walletAdapter.publicKey) {
+        alert("Please connect your wallet");
+        console.log(walletAdapter);
+        return;
+      }
+      console.log("NFT mint:", nftMint);
+      const nft = await metaplex.nfts().findByMint({
+        mintAddress: new PublicKey(nftMint),
+      });
+      const nftTokenAccount = await getOrCreateAssociatedTokenAccount(
+        connection,
+        Keypair.generate(),
+        nft.address,
+        walletAdapter.publicKey
+      );
+      console.log(nftTokenAccount);
+
+      const initializeStakeInstruction =
+        createInitializeStakeAccountInstruction(
+          walletAdapter.publicKey,
+          nftTokenAccount.address,
+          PROGRAM_ID
+        );
+
+      const stakeInstruction = createStakingInstruction(
+        walletAdapter.publicKey,
+        nftTokenAccount.address,
+        PROGRAM_ID,
+        new PublicKey(nftMint),
+        nft.edition.address,
+        TOKEN_PROGRAM_ID,
+        METADATA_PROGRAM_ID
+      );
+
+      const transaction = new Transaction()
+        .add(initializeStakeInstruction)
+        .add(stakeInstruction);
+
+      try {
+        const signature = await walletAdapter.sendTransaction(
+          transaction,
+          connection
+        );
+        console.log(signature);
+
+        const latestBlockhash = await connection.getLatestBlockhash();
+
+        await connection.confirmTransaction(
+          {
+            blockhash: latestBlockhash.blockhash,
+            lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+            signature: signature,
+          },
+          "finalized"
+        );
+        await checkStakingStatus(nftTokenAccount.address);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     []
   );
 
@@ -145,8 +226,9 @@ const Village: NextPage<VillageProps> = ({ owner }) => {
                     <Button
                       colorScheme="blue"
                       rightIcon={<ArrowForwardIcon />}
-                      onClick={handleClick}
-                      data-mint={building.mintAddress.toString()}
+                      onClick={() => {
+                        handleStake(building.mintAddress.toString());
+                      }}
                     >
                       Farm wood
                     </Button>
